@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "debug",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "/var/www/src/main.go",
+        }
+    ]
+}

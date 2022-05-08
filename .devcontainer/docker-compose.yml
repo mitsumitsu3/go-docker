@@ -1,0 +1,48 @@
+version: '3.8'
+volumes:
+  db-store:
+services:
+  app:
+    build: .
+    tty: true
+    stdin_open: true
+    command: /bin/bash
+    volumes:
+      - ..:/var/www
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=${DB_NAME:-go_local}
+      - DB_USERNAME=${DB_USER:-mitsu}
+      - DB_PASSWORD=${DB_PASS:-secret}
+    ports:
+      - 8080:8080
+  db:
+    build:
+      context: .
+      dockerfile: ./mysql/Dockerfile
+    ports:
+      - 13306:3306
+    volumes:
+      - type: volume
+        source: db-store
+        target: /var/lib/mysql
+        volume:
+          nocopy: true
+    environment:
+      - MYSQL_DATABASE=${DB_NAME:-go_local}
+      - MYSQL_USER=${DB_USER:-mitsu}
+      - MYSQL_PASSWORD=${DB_PASS:-secret}
+      - MYSQL_ROOT_PASSWORD=${DB_PASS:-secret}
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=mitsu
+      - PMA_PASSWORD=secret
+    links:
+      - db
+    ports:
+      - 4848:80

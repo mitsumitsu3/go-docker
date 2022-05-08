@@ -1,0 +1,24 @@
+{
+  "name": "Go",
+  "dockerComposeFile": [
+    "./docker-compose.yml"
+  ],
+  "service": "app",
+  "workspaceFolder": "/var/www",
+  "settings": {
+    "go.toolsManagement.checkForUpdates": "off",
+    "go.gopath": "/go",
+    "go.gocodeAutoBuild": true,
+    "go.formatTool": "gofmt",
+    "go.useLanguageServer": true,
+    "editor.formatOnSave": false,
+    "[go]": {
+      "editor.formatOnSave": true
+    }
+  },
+  "extensions": [
+    "doggy8088.go-extension-pack",
+    "golang.go",
+    "MS-CEINTL.vscode-language-pack-ja"
+  ],
+}
